@@ -1,0 +1,108 @@
+import javax.swing.*;
+import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.event.*;
+
+public class WPanel extends JPanel
+{   
+   public int a, b;
+   public int money = 25;
+   public double grams = 0.0;
+   private JLabel cash, tree, action;
+   
+   public void splitEighth(int a)
+   {
+      if(a == 1)
+      {
+         money -= 25;
+         grams += 1.75;
+      }
+      else if(a > 1)
+      {
+         money -= 25 * a;
+         grams += 1.75 * a;
+      }      
+   }
+   public void pushGram(int b)
+   {
+      if(b == 1)
+      {
+         money += 20;
+         grams -= 1.0;
+      }
+      else if(b > 1)
+      {
+         money += 20 * b;
+         grams -= 1.0 * b;
+      }      
+   }
+   
+   public void WPanel()
+   {
+      setLayout(new FlowLayout());
+      
+      cash = new JLabel("$25");
+      cash.setFont(new Font("Serif", Font.BOLD, 36));
+      cash.setForeground(Color.black);
+      add(cash);
+      
+      tree = new JLabel("0.00g");
+      tree.setFont(new Font("Serif", Font.BOLD, 36));
+      tree.setForeground(Color.black);
+      add(tree);
+      
+      action = new JLabel("");
+      action.setFont(new Font("Serif", Font.BOLD, 30));
+      action.setForeground(Color.black);
+      add(action);
+      
+      JButton sEighth = new JButton("Split Eighth");
+      sEighth.addActionListener(new Listener1());
+      add(sEighth);
+      
+      JButton pGram = new JButton("Push Gram");
+      pGram.addActionListener(new Listener2());
+      add(pGram);
+   }
+   
+   private class Listener1 implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         String sEighthIterations = JOptionPane.showInputDialog("How many eighths do you want to split?");
+         int c = Integer.parseInt(sEighthIterations);
+         c = a;
+         splitEighth(a);
+         cash.setText("" + money);
+         tree.setText("" + grams);
+         if(a == 1)
+         {
+            action.setText("Split 1 Eighth");
+         }
+         else
+         {
+            action.setText("Split" + a + "Eighths");
+         }   
+      }
+   }
+   private class Listener2 implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         String pGramIterations = JOptionPane.showInputDialog("How many grams do you want to push?");
+         int d = Integer.parseInt(pGramIterations);
+         d = b;
+         pushGram(b);
+         cash.setText("" + money);
+         tree.setText("" + grams);
+         if(b == 1)
+         {
+            action.setText("Pushed 1 Gram");
+         }
+         else
+         {
+            action.setText("Pushed" + b + "Grams");
+         }
+      }
+   }
+}
